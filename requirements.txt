@@ -1,0 +1,13 @@
+pandas>=2.2
+numpy>=1.26
+pyarrow>=15
+pyyaml>=6
+scipy>=1.12
+scikit-learn>=1.4
+joblib>=1.3
+streamlit>=1.35
+plotly>=5.20
+pydeck>=0.8
+pytest>=8
+ruff>=0.4
+-e .

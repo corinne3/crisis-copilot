@@ -1,0 +1,51 @@
+seed: 42
+paths:
+  raw: data/raw
+  clean: data/clean
+  outputs: outputs
+raw_files:                       # synthetic files provided by Enedis for the hackathon (not versioned)
+  sites: agents_v2.csv
+  substations: poste_v2.csv
+  towns: insee_v2.csv
+  outages: coupures_v2_100_crises.csv
+travel:
+  detour_factor: 1.3             # road distance ≈ great-circle distance × 1.3
+  speed_plain_kmh: 55
+  speed_mountain_kmh: 35
+  mountain_lat_threshold: 43.05  # applied to the DESTINATION latitude
+work:
+  shift_max_min: 720             # 12h maximum shift
+  rest_min: 660                  # 11h mandatory rest
+score:
+  alpha_sensitive: 5.0           # weight multiplier for substations with vulnerable customers
+  beta_wait_per_h: 0.1           # ageing: weight grows 10 %/h of waiting
+monte_carlo:
+  enabled: false
+  sigma_duration: 0.3
+  sigma_speed: 0.15
+breaks:                          # V2 — lunch break (off by default)
+  enabled: false
+  mode: fixed                    # fixed | smart
+  duration_min: 45
+  threshold_min: 240
+  opportunistic_min: 180
+  forced_min: 360
+  radius_min: 30
+  max_share_site: 0.5
+fatigue:                         # V2 — fatigue model (off by default)
+  enabled: false
+  threshold_h: 4.0
+  slope_per_h: 0.05
+  max: 1.5
+rotation:                        # V2 — staggered shifts (off by default)
+  enabled: false
+  groups: 2
+  offset_min: 240
+llm:                             # V3 — one small local model shared by all AI bricks
+  host: http://localhost:11434
+  model: phi4-mini               # Microsoft Phi-4-mini, 3.8B, MIT licence (any Ollama model name works)
+  timeout_s: 180                 # CPU: a long answer can take a minute or two
+  temperature: 0.1
+  keep_alive: 30m                # keep the model in memory between calls (Ollama default: 5m)
+display:
+  snapshot_step_min: 30
