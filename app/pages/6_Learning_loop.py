@@ -69,7 +69,7 @@ reasons = [r for r in reasons if r]
 if reasons:
     groups, how = L.group_reasons(reasons, client)
     st.caption("Grouped by the local LLM (a sample of 40 reasons)" if how == "llm"
-               else "Grouped by keyword rules (local LLM off)")
+               else "Grouped by keyword rules (local LLM off, or its answer was incomplete)")
     rows = [{"theme": t, "reasons": len(ix), "example": reasons[ix[0]]} for t, ix in
             sorted(groups.items(), key=lambda kv: -len(kv[1]))]
     st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)

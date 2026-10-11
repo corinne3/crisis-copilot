@@ -16,3 +16,5 @@ outputs/*
 .DS_Store
 Thumbs.db
 .streamlit/secrets.toml
+demo_shots/
+demo_shots.zip

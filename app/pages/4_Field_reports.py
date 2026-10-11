@@ -40,6 +40,11 @@ if st.button("📨 Read the messages", type="primary") or "fr_updates" not in st
         st.session_state["fr_messages"] = messages
 updates = st.session_state["fr_updates"]
 
+def _clean(v):
+    """Empty cells of the editable table come back as None, NaN or 'None'."""
+    return None if v is None or (isinstance(v, float) and pd.isna(v)) or str(v).strip() in ("", "None", "nan") else str(v)
+
+
 STATUS = {"ok": "✅ usable", "needs_review": "🟠 needs review", "manager_must_handle": "🔴 manager must handle"}
 table = pd.DataFrame([{"message": m, **u.as_dict()} for m, u in zip(st.session_state["fr_messages"], updates,
                                                                     strict=True)])
@@ -62,7 +67,7 @@ if st.button("🔁 Re-plan the crisis with the ticked updates"):
     for row, u in zip(edited.itertuples(), updates, strict=True):
         if not row.apply:
             continue
-        v = FR.validate(FR.Update(u.type, row.incident_id or None, row.crew_id or None,
+        v = FR.validate(FR.Update(u.type, _clean(row.incident_id), _clean(row.crew_id),
                                   None if pd.isna(row.extra_minutes) else int(row.extra_minutes), u.summary, u.source),
                         row.message, set(ids), set(crew_ids), checked_by_human=True)
         if v.status == "ok":

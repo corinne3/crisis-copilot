@@ -93,3 +93,11 @@ def test_whatif_cross_check_keeps_the_rule_direction():
     sc = W.understand(q, FakeClient([wrong]))
     f = {c["kind"]: c["factor"] for c in sc.changes}
     assert f == {"repair_time": 1.2, "travel_speed": 1.1} and any("rule value kept" in i for i in sc.issues)
+
+
+def test_whatif_crisis_number_must_be_in_the_question():
+    q = "What if we lose 5 crews in Gers?"
+    llm = json.dumps({"crisis": 1, "changes": [{"kind": "remove_crews", "count": 5, "department": "Gers"}]})
+    sc = W.understand(q, FakeClient([llm]))
+    assert sc.crisis is None
+    assert W.understand("crisis 27: lose 5 crews in Gers").crisis == 27

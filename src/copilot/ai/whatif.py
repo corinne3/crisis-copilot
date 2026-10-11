@@ -213,6 +213,9 @@ def validate(sc: Scenario, question: str, n_crews_per_dep: dict | None = None) -
     if sc.crisis is not None and not 1 <= int(sc.crisis) <= 100:
         sc.issues.append(f"crisis {sc.crisis} does not exist — using the selected crisis")
         sc.crisis = None
+    elif sc.crisis is not None and not re.search(rf"cris[ie]s\s*#?\s*0*{int(sc.crisis)}\b", question.lower()):
+        sc.issues.append(f"crisis {sc.crisis} is not named in the question — using the selected crisis")
+        sc.crisis = None
     return sc
 
 
