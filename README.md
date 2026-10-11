@@ -135,7 +135,7 @@ The mechanisms are in place; the numbers would become operational with the utili
 
 ## Credits
 
-Hackathon team (Enedis challenge, Hackathon IA for Impact 2026): Corinne Berges and teammates
+Hackathon team (Enedis challenge, Hackathon IA for Impact 2026): Corinne Bergès and teammates
 <!-- TODO: add your teammates' names here -->.
 This repository is a clean, English rewrite (V3) of my part of the hackathon work (V1), extended with workforce
 realism (V2: breaks, fatigue, rotation) and the four frugal-AI bricks (V3). Thanks to Enedis for the challenge and
