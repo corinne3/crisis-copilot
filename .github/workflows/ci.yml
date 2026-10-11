@@ -16,5 +16,5 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Lint
         run: ruff check .
-      - name: Tests (the challenge data is not in the repo: data-dependent tests are skipped)
+      - name: "Tests (no challenge data in the repo: data-dependent tests are skipped)"
         run: pytest -q
